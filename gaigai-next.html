@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>感情判定Web</title>
+</head>
+<body>
+
+  <h1>文章の感情を判定します</h1>
+  <input type="text" id="userInput" size="50" placeholder="例：今日は最悪だった…">
+  <button onclick="judgeSentiment()">判定</button>
+
+  <h2 id="result"></h2>
+  <img id="resultImage" style="display:none; width:300px; margin-top:20px;" />
+
+  <script>
+    function judgeSentiment() {
+      const text = document.getElementById("userInput").value;
+      const result = document.getElementById("result");
+
+      // ポジティブ・ネガティブワード
+      const positiveWords = ["嬉しい", "楽しい", "最高", "素敵", "素晴らしい", "大好き", "幸せ", "いいね", "ハッピー", "快適"];
+      const negativeWords = ["悲しい", "つらい", "最悪", "嫌い", "うんざり", "疲れた", "ムカつく", "失敗", "イライラ", "後悔"];
+
+      // 判定処理
+      let isPositive = positiveWords.some(word => text.includes(word));
+      let isNegative = negativeWords.some(word => text.includes(word));
+
+      // 結果表示
+      if (isPositive) {
+        result.textContent = "😊 わいも嬉しくなってきたんやで！";
+        result.style.color = "green";
+        resultImage.src = "high.jpg";
+        resultImage.style.display = "block";
+      } else if (isNegative) {
+        result.textContent = "😞 ネガティブなんやね";
+        result.style.color = "red";
+        resultImage.src = "low.jpg";
+        resultImage.style.display = "block";
+      } else {
+        result.textContent = "🤔 暇なんやね。";
+        result.style.color = "gray";
+        resultImage.src = "hima.jpg";
+        resultImage.style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
